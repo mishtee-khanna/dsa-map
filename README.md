@@ -2,8 +2,6 @@
 
 An interactive, single-file website that maps out Data Structures & Algorithms the way a city maps out its subway system — topics as stations, related concepts grouped into color-coded lines, and a few key interchanges where everything connects.
 
-**[Live Demo](#)** *(replace with your GitHub Pages link once deployed)*
-
 ---
 
 ## What it is
