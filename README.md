@@ -1,96 +1,211 @@
-# The DSA Metro Map 🚇
+# 🚇 DSA Metro Map
 
-An interactive, single-file website that maps out Data Structures & Algorithms the way a city maps out its subway system — topics as stations, related concepts grouped into color-coded lines, and a few key interchanges where everything connects.
+> **Learn Data Structures & Algorithms like you would navigate a metro system.**
+>
+> Topics become **stations**, related concepts become **lines**, and important concepts become **interchanges** — giving you a visual roadmap from DSA fundamentals to interview readiness.
+
+<p align="center">
+  <a href="https://dsa-map-jet.vercel.app/"><strong>🚀 Live Demo</strong></a>
+  &nbsp; • &nbsp;
+  <a href="https://github.com/mishtee-khanna/dsa-map">📂 Repository</a>
+</p>
 
 ---
 
-## What it is
+## ✨ Overview
 
-Instead of a flat checklist, DSA topics are laid out as six subway lines:
+The **DSA Metro Map** is a lightweight, interactive study companion designed to make DSA easier to visualize and navigate.
 
-| Line | Covers |
+Instead of studying from a long checklist, you can follow connected learning paths through different DSA areas and track the topics you have already explored.
+
+### 🗺️ The Metro Lines
+
+| Line | Topics Covered |
 |---|---|
 | 🟡 **Foundations Line** | Arrays, Strings, Hashing, Two Pointers, Sliding Window, Prefix Sums |
-| 🔵 **Linear Structures Line** | Linked List, Stack, Queue/Deque, Monotonic Stack |
+| 🔵 **Linear Structures Line** | Linked Lists, Stacks, Queues/Deques, Monotonic Stack |
 | 🟠 **Search & Sort Line** | Sorting, Binary Search, Binary Search on Answer, Greedy |
 | 🟢 **Tree Line** | Binary Trees, BST, Heaps, Tries, Segment Trees |
-| 🟣 **Graph Line** | Graph Basics (BFS/DFS), Union-Find, Topological Sort, Shortest Paths, MST |
-| 🌸 **Recursion & DP Line** | Recursion/Backtracking, 1D DP, Knapsack, Interval/2D DP, Bitmask DP |
+| 🟣 **Graph Line** | BFS/DFS, Union-Find, Topological Sort, Shortest Paths, MST |
+| 🌸 **Recursion & DP Line** | Recursion, Backtracking, 1D DP, Knapsack, Interval/2D DP, Bitmask DP |
 
-All lines pass through a central **Recursion & Backtracking** interchange and converge at a final **Interview Ready** terminus — the shape of the map tells the story of how these topics build on each other.
+The lines connect through important **interchanges**, ultimately leading toward an **Interview Ready** destination.
 
-## Features
+---
 
-- **30 topic "stations,"** each with a short explanation, a difficulty tag, and 3 key problems to practice
-- **Click any station** to open a detail panel with more info
-- **Line filtering** — click a line in the legend to highlight just that track and dim the rest
-- **Search** — jump straight to a topic by typing its name
-- **Progress tracking** — mark stations as visited and watch the counter/progress bar fill up
-- Fully responsive, with a horizontally scrollable map on smaller screens
-- Zero dependencies, zero build step — one HTML file
+## 🎯 Features
 
-## Tech Stack
+- 🚉 **30+ DSA stations** covering major interview topics
+- 📖 **Topic details** with explanations, difficulty levels, and practice problems
+- 🔎 **Search** to quickly find a DSA topic
+- 🎨 **Line filtering** to focus on a specific learning path
+- ✅ **Progress tracking** with visited stations and a progress indicator
+- 📱 **Responsive design** for desktop and smaller screens
+- ♿ **Reduced-motion support** through `prefers-reduced-motion`
+- ⚡ **Zero dependencies** and no build process
+- 📄 **Single-file application** — the complete site lives in `index.html`
 
-- **HTML5 + inline SVG** — the map itself is a hand-plotted SVG line diagram
-- **CSS3** — custom properties, responsive layout, `prefers-reduced-motion`-aware animations
-- **Vanilla JavaScript** — renders stations/lines from a data array and handles all interactivity
-- **Google Fonts** — Space Grotesk, Inter, and JetBrains Mono (loaded via CDN)
+---
 
-No frameworks, no npm install, no build tools.
+## 🛠️ Tech Stack
 
-## Getting Started
+| Technology | Purpose |
+|---|---|
+| **HTML5** | Page structure and content |
+| **CSS3** | Layout, styling, responsiveness and animations |
+| **SVG** | Custom metro-map visualization |
+| **Vanilla JavaScript** | Rendering, search, filtering and interactions |
+| **Google Fonts** | Space Grotesk, Inter and JetBrains Mono |
 
-This is a static, single-file site — just open it in a browser.
+### Why no framework?
 
-1. Clone the repository
-   ```bash
-   git clone https://github.com/<your-username>/<your-repo>.git
-   cd <your-repo>
-   ```
-2. Open `dsa-map.html` directly in your browser, **or** serve it locally:
-   ```bash
-   python3 -m http.server 8000
-   # then visit http://localhost:8000/dsa-map.html
-   ```
+This project intentionally uses **vanilla HTML, CSS and JavaScript**. Since the application is a static interactive visualization, a framework or build system would add unnecessary complexity.
 
-### Deploying to GitHub Pages
+That keeps the project:
 
-1. Push this repo to GitHub.
-2. Go to **Settings → Pages**.
-3. Under "Build and deployment," set the source to your default branch.
-4. If `dsa-map.html` isn't your repo's `index.html`, either rename it to `index.html` or link to it directly, e.g. `https://<your-username>.github.io/<your-repo>/dsa-map.html`.
+- ⚡ Fast to load
+- 🪶 Lightweight
+- 🔧 Easy to modify
+- 🚀 Simple to deploy
 
-## Project Structure
+---
 
+## 🚀 Getting Started
+
+### 1. Clone the repository
+
+```bash
+git clone https://github.com/mishtee-khanna/dsa-map.git
+cd dsa-map
 ```
-.
-├── dsa-map.html   # The entire site — markup, styles, and script in one file
-└── README.md
+
+### 2. Run locally
+
+Because this is a static website, you can simply open `index.html` in your browser.
+
+For a local development server, use Python:
+
+```bash
+python3 -m http.server 8000
 ```
 
-## Notes & Limitations
+Then open:
 
-- **Progress isn't saved.** Visited stations reset on page refresh, since the map intentionally avoids browser storage — treat it as a session-based study companion rather than a persistent tracker. Adding real persistence (e.g. `localStorage`, or an account-backed backend) is a natural next step.
-- Topic descriptions and recommended problems are meant as a starting point, not an exhaustive curriculum.
+```text
+http://localhost:8000
+```
 
-## Roadmap Ideas
+---
 
-- [ ] Persist visited stations across sessions
-- [ ] Link each station directly to curated problem sets (LeetCode/NeetCode/etc.)
-- [ ] Add a "suggested route" mode that walks through stations in recommended order
-- [ ] Dark/light theme toggle
-- [ ] Export progress as a shareable image
+## ☁️ Deployment
 
-## Contributing
+The project is deployed as a static site on **Vercel**.
 
-Contributions are welcome — whether it's fixing a typo in a description, adding more practice problems, or improving the map layout.
+### Live Website
+
+👉 **https://dsa-map-jet.vercel.app/**
+
+Because the main file is named `index.html`, Vercel can serve the application directly from the root URL without a framework or build command.
+
+---
+
+## 📁 Project Structure
+
+```text
+dsa-map/
+│
+├── index.html     # Complete application: HTML + CSS + JavaScript
+└── README.md      # Project documentation
+```
+
+---
+
+## 🧠 How It Works
+
+The map is generated from structured JavaScript data inside `index.html`.
+
+Each DSA topic contains information such as:
+
+```text
+Topic
+ ├── Line / Category
+ ├── Difficulty
+ ├── Description
+ └── Practice Problems
+```
+
+JavaScript uses this data to render the stations and their interactions on the SVG-based map.
+
+### User Flow
+
+```text
+Explore the Map
+       ↓
+Choose a Metro Line
+       ↓
+Select a DSA Station
+       ↓
+Read the Concept
+       ↓
+Practice Problems
+       ↓
+Mark Station as Visited
+       ↓
+Track Progress
+       ↓
+Interview Ready 🚀
+```
+
+---
+
+## 📌 Current Limitations
+
+- Progress is currently **session-based** and resets when the page is refreshed.
+- Practice problems are curated starting points rather than an exhaustive problem list.
+- There is currently no login or backend/database.
+
+---
+
+## 🔮 Future Improvements
+
+- [ ] 💾 Persist progress using `localStorage`
+- [ ] 🔗 Add direct links to LeetCode / NeetCode practice sets
+- [ ] 🧭 Add a guided learning route
+- [ ] 🌙 Add dark/light theme support
+- [ ] 📊 Add detailed progress statistics
+- [ ] 🖼️ Export a personalized DSA progress map
+- [ ] 👤 Add optional user accounts and cloud progress syncing
+
+---
+
+## 🤝 Contributing
+
+Contributions and suggestions are welcome!
 
 ```bash
 git checkout -b feature/your-feature-name
+git add .
 git commit -m "Add your feature"
 git push origin feature/your-feature-name
 ```
 
-## License
+Then open a Pull Request on GitHub.
 
-This project is currently unlicensed. Consider adding a [LICENSE](https://choosealicense.com/) file (e.g., MIT) if you'd like others to freely reuse or build on it.
+---
+
+## 👩‍💻 Author
+
+**Mishtee Khanna**
+
+- GitHub: [@mishtee-khanna](https://github.com/mishtee-khanna)
+- Project: [DSA Metro Map](https://github.com/mishtee-khanna/dsa-map)
+
+---
+
+## ⭐ Support
+
+If you find the **DSA Metro Map** useful for your DSA preparation, consider giving the repository a ⭐ on GitHub!
+
+<p align="center">
+  <strong>🚇 Pick a line. Visit a station. Master DSA. 💻</strong>
+</p>
