@@ -1,15 +1,15 @@
 <div align="center">
 
-<img src="https://capsule-render.vercel.app/api?type=waving&color=F2B705&height=180&section=header&text=DSA%20Metro%20Map&fontSize=52&fontColor=111111&animation=fadeIn&fontAlignY=38" width="100%" alt="DSA Metro Map Header">
+<img src="https://capsule-render.vercel.app/api?type=waving&color=F2B705&height=120&section=header&text=DSA%20Metro%20Map&fontSize=42&fontColor=111111&animation=fadeIn&fontAlignY=40" width="100%" alt="DSA Metro Map Header">
 
 ### 🚇 *Your visual route from DSA Beginner → Interview Ready.*
 
 <a href="https://dsa-map-jet.vercel.app/"><img src="https://img.shields.io/badge/🚀_LIVE_DEMO-F2B705?style=for-the-badge&logoColor=111111" alt="Live Demo"></a>
 <a href="https://github.com/mishtee-khanna/dsa-map"><img src="https://img.shields.io/badge/⭐_STAR_REPO-111827?style=for-the-badge&logo=github&logoColor=white" alt="Star Repository"></a>
 
-<br><br>
+<br>
 
-<img src="https://readme-typing-svg.demolab.com?font=JetBrains+Mono&size=20&duration=2800&pause=900&color=F2B705&center=true&vCenter=true&width=700&lines=Explore+DSA+like+a+Metro+Map+%F0%9F%9A%87;Pick+a+line.+Visit+a+station.+Master+DSA.+%F0%9F%92%BB;From+Foundations+to+Interview+Ready+%F0%9F%9A%80" alt="Animated typing introduction">
+<img src="https://readme-typing-svg.demolab.com?font=JetBrains+Mono&size=18&duration=2600&pause=800&color=F2B705&center=true&vCenter=true&width=620&height=45&lines=Explore+DSA+like+a+Metro+Map+%F0%9F%9A%87;Pick+a+line.+Visit+a+station.+Master+DSA.+%F0%9F%92%BB;From+Foundations+to+Interview+Ready+%F0%9F%9A%80" alt="Animated typing introduction">
 
 <br>
 
@@ -71,40 +71,16 @@ Instead of staring at a huge checklist, follow connected learning paths, explore
 
 <table align="center">
 <tr>
-<td align="center" width="50%">
-<br>🚉<br><b>30+ DSA Stations</b><br>
-<sub>Major interview topics mapped visually.</sub>
-<br><br>
-</td>
-<td align="center" width="50%">
-<br>🔎<br><b>Interactive Search</b><br>
-<sub>Jump directly to the topic you need.</sub>
-<br><br>
-</td>
+<td align="center" width="50%"><br>🚉<br><b>30+ DSA Stations</b><br><sub>Major interview topics mapped visually.</sub><br><br></td>
+<td align="center" width="50%"><br>🔎<br><b>Interactive Search</b><br><sub>Jump directly to the topic you need.</sub><br><br></td>
 </tr>
 <tr>
-<td align="center">
-<br>🎨<br><b>Line Filtering</b><br>
-<sub>Focus on one DSA learning path.</sub>
-<br><br>
-</td>
-<td align="center">
-<br>📖<br><b>Topic Details</b><br>
-<sub>Explanations, difficulty & practice problems.</sub>
-<br><br>
-</td>
+<td align="center"><br>🎨<br><b>Line Filtering</b><br><sub>Focus on one DSA learning path.</sub><br><br></td>
+<td align="center"><br>📖<br><b>Topic Details</b><br><sub>Explanations, difficulty & practice problems.</sub><br><br></td>
 </tr>
 <tr>
-<td align="center">
-<br>✅<br><b>Progress Tracking</b><br>
-<sub>Mark stations as visited and monitor progress.</sub>
-<br><br>
-</td>
-<td align="center">
-<br>📱<br><b>Responsive UI</b><br>
-<sub>Designed for different screen sizes.</sub>
-<br><br>
-</td>
+<td align="center"><br>✅<br><b>Progress Tracking</b><br><sub>Mark stations as visited and monitor progress.</sub><br><br></td>
+<td align="center"><br>📱<br><b>Responsive UI</b><br><sub>Designed for different screen sizes.</sub><br><br></td>
 </tr>
 </table>
 
@@ -181,13 +157,11 @@ Then open `http://localhost:8000` in your browser.
 
 <div align="center">
 
-<a href="https://dsa-map-jet.vercel.app/">
-<img src="https://img.shields.io/badge/🚀_OPEN_LIVE_DSA_METRO_MAP-F2B705?style=for-the-badge&labelColor=111827" alt="Open Live DSA Metro Map">
-</a>
+<a href="https://dsa-map-jet.vercel.app/"><img src="https://img.shields.io/badge/🚀_OPEN_LIVE_DSA_METRO_MAP-F2B705?style=for-the-badge&labelColor=111827" alt="Open Live DSA Metro Map"></a>
 
 <br><br>
 
-<img src="https://capsule-render.vercel.app/api?type=rect&color=111827&height=70&text=Pick%20a%20line.%20Visit%20a%20station.%20Master%20DSA.&fontSize=20&fontColor=F2B705&animation=fadeIn" width="90%" alt="Animated project tagline">
+<img src="https://capsule-render.vercel.app/api?type=rect&color=111827&height=60&text=Pick%20a%20line.%20Visit%20a%20station.%20Master%20DSA.&fontSize=18&fontColor=F2B705&animation=fadeIn" width="90%" alt="Animated project tagline">
 
 </div>
 
@@ -259,7 +233,7 @@ Then open a Pull Request. 🚀
 
 <div align="center">
 
-<img src="https://readme-typing-svg.demolab.com?font=JetBrains+Mono&size=18&duration=3000&pause=1000&color=F2B705&center=true&vCenter=true&width=650&lines=Keep+learning.+Keep+solving.+Keep+moving.+%F0%9F%9A%87;Your+next+station%3F+Interview+Ready.+%F0%9F%9A%80" alt="Animated closing message">
+<img src="https://readme-typing-svg.demolab.com?font=JetBrains+Mono&size=17&duration=2800&pause=900&color=F2B705&center=true&vCenter=true&width=600&height=40&lines=Keep+learning.+Keep+solving.+Keep+moving.+%F0%9F%9A%87;Your+next+station%3F+Interview+Ready.+%F0%9F%9A%80" alt="Animated closing message">
 
 <br>
 
@@ -268,5 +242,3 @@ Then open a Pull Request. 🚀
 **🚇 Learn the route. Master the concepts. Ace the interview. 💻**
 
 </div>
-
-<img src="https://capsule-render.vercel.app/api?type=waving&color=F2B705&height=120&section=footer" width="100%" alt="Footer">
