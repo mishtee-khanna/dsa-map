@@ -288,18 +288,25 @@
   }
 
   /* ── MAP ── */
+  @keyframes bgDrift {
+    0% { background-position: 0 0; }
+    100% { background-position: -40px -40px; }
+  }
   .map-wrap {
     flex: 1;
     overflow: hidden;
     position: relative;
     cursor: grab;
     user-select: none;
-    background: var(--bg);
+    background-color: var(--bg);
+    background-image: radial-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+    background-size: 20px 20px;
+    animation: bgDrift 20s linear infinite;
   }
   .map-wrap:active {
     cursor: grabbing;
   }
-  #map-svg { width: 100%; height: 100%; display: block; }
+  #map-svg { width: 100%; height: 100%; display: block; position: relative; z-index: 1; }
 
   .scroll-hint {
     font-family: 'JetBrains Mono', monospace;
@@ -714,6 +721,25 @@
     width: 40px;
     background: var(--hairline);
   }
+  .jump-next-btn {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    background: var(--surface-2);
+    border: 1px solid var(--glass-border);
+    color: var(--ink);
+    padding: 6px 12px;
+    border-radius: 8px;
+    font-size: 13px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s;
+    margin-right: 12px;
+  }
+  .jump-next-btn:hover {
+    background: var(--surface-3);
+    color: var(--accent);
+  }
 </style>
 </head>
 <body>
@@ -737,6 +763,10 @@
   </div>
 
   <div class="header-right">
+    <button class="jump-next-btn" id="jump-next-btn">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon></svg>
+      Jump to Next
+    </button>
     <div class="progress-wrap">
       <span class="progress-label">Visited <b id="visited-count">0</b> / <span id="total-count">30</span></span>
       <div class="progress-track">
@@ -927,6 +957,34 @@
     state.lineTotals[st.line] = (state.lineTotals[st.line] || 0) + 1;
   });
 
+  // Audio Context (Feature 3)
+  let audioCtx = null;
+  function initAudio() {
+    if (!audioCtx) {
+      audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+    }
+    if (audioCtx.state === 'suspended') audioCtx.resume();
+  }
+  function playBeep(freq, type, duration, vol=0.1) {
+    if (!audioCtx) return;
+    const osc = audioCtx.createOscillator();
+    const gain = audioCtx.createGain();
+    osc.type = type;
+    osc.frequency.setValueAtTime(freq, audioCtx.currentTime);
+    gain.gain.setValueAtTime(vol, audioCtx.currentTime);
+    gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + duration);
+    osc.connect(gain);
+    gain.connect(audioCtx.destination);
+    osc.start();
+    osc.stop(audioCtx.currentTime + duration);
+  }
+  function playClick() { playBeep(600, 'sine', 0.05, 0.05); }
+  function playSuccess() { playBeep(880, 'sine', 0.1, 0.05); setTimeout(()=>playBeep(1108, 'sine', 0.2, 0.05), 80); }
+  function playLevelUp() { [523.25, 659.25, 783.99, 1046.50].forEach((f, i) => setTimeout(() => playBeep(f, 'square', 0.3, 0.03), i * 60)); }
+
+  // Init audio on any click
+  document.addEventListener('click', initAudio, { once: true });
+
   function poly(points){ return points.map(p => p.join(',')).join(' '); }
   function pathLen(points){
     let len = 0;
@@ -1115,6 +1173,7 @@
   }
 
   function selectStation(id){
+    initAudio(); playClick();
     const st = STATIONS.find(s => s.id === id);
     state.selected = id;
     document.querySelectorAll('.station').forEach(g => g.classList.toggle('selected', g.dataset.id === id));
@@ -1151,22 +1210,58 @@
     minimapViewport.style.transform = `translate(${viewX}px, ${viewY}px)`;
   }
   
-  // Drag to Pan
+  // Drag to Pan & Touch to Pinch (Feature 4)
   let isDown = false, startX, startY, initTx, initTy;
+
+  function handleDown(x, y) {
+    isDown = true;
+    startX = x; startY = y;
+    initTx = transform.x; initTy = transform.y;
+  }
+  function handleMove(x, y) {
+    if(!isDown) return;
+    transform.x = initTx + (x - startX);
+    transform.y = initTy + (y - startY);
+    updateTransform();
+  }
 
   mapWrap.addEventListener('mousedown', (e) => {
     if(e.target.closest('.map-controls') || e.target.closest('.minimap-container')) return;
-    isDown = true;
-    startX = e.clientX; startY = e.clientY;
-    initTx = transform.x; initTy = transform.y;
+    handleDown(e.clientX, e.clientY);
   });
   window.addEventListener('mouseup', () => isDown = false);
-  window.addEventListener('mousemove', (e) => {
-    if(!isDown) return;
-    transform.x = initTx + (e.clientX - startX);
-    transform.y = initTy + (e.clientY - startY);
-    updateTransform();
-  });
+  window.addEventListener('mousemove', (e) => handleMove(e.clientX, e.clientY));
+
+  let initialPinchDist = null;
+  let initialPinchScale = null;
+  mapWrap.addEventListener('touchstart', (e) => {
+    if(e.touches.length === 1) {
+      if(e.target.closest('.map-controls') || e.target.closest('.minimap-container')) return;
+      handleDown(e.touches[0].clientX, e.touches[0].clientY);
+    } else if (e.touches.length === 2) {
+      initialPinchDist = Math.hypot(e.touches[0].clientX - e.touches[1].clientX, e.touches[0].clientY - e.touches[1].clientY);
+      initialPinchScale = transform.scale;
+    }
+  }, {passive: false});
+  window.addEventListener('touchend', () => { isDown = false; initialPinchDist = null; });
+  window.addEventListener('touchmove', (e) => {
+    if (e.touches.length === 1) {
+      handleMove(e.touches[0].clientX, e.touches[0].clientY);
+    } else if (e.touches.length === 2 && initialPinchDist) {
+      e.preventDefault();
+      const dist = Math.hypot(e.touches[0].clientX - e.touches[1].clientX, e.touches[0].clientY - e.touches[1].clientY);
+      const newScale = Math.min(Math.max(initialPinchScale * (dist / initialPinchDist), 0.3), 3);
+      
+      const rect = mapWrap.getBoundingClientRect();
+      const mx = ((e.touches[0].clientX + e.touches[1].clientX) / 2) - rect.left;
+      const my = ((e.touches[0].clientY + e.touches[1].clientY) / 2) - rect.top;
+      
+      transform.x = mx - (mx - transform.x) * (newScale / transform.scale);
+      transform.y = my - (my - transform.y) * (newScale / transform.scale);
+      transform.scale = newScale;
+      updateTransform();
+    }
+  }, {passive: false});
 
   // Zoom on wheel
   mapWrap.addEventListener('wheel', (e) => {
@@ -1192,6 +1287,40 @@
   // Init
   window.addEventListener('resize', updateTransform);
   setTimeout(updateTransform, 0);
+
+  // Jump to Next (Feature 2)
+  function jumpToNext() {
+    initAudio(); playClick();
+    const nextSt = STATIONS.find(s => !state.visited.has(s.id));
+    if(!nextSt) return; 
+    
+    const targetScale = 1.2;
+    const rect = mapWrap.getBoundingClientRect();
+    const cx = rect.width / 2;
+    const cy = rect.height / 2;
+    
+    const targetX = cx - (nextSt.x * targetScale);
+    const targetY = cy - (nextSt.y * targetScale) + (450 * targetScale); 
+    
+    const startX = transform.x;
+    const startY = transform.y;
+    const startS = transform.scale;
+    let startTime = null;
+    
+    function anim(t) {
+      if(!startTime) startTime = t;
+      const progress = Math.min((t - startTime) / 600, 1);
+      const ease = 1 - Math.pow(1 - progress, 3);
+      transform.x = startX + (targetX - startX) * ease;
+      transform.y = startY + (targetY - startY) * ease;
+      transform.scale = startS + (targetScale - startS) * ease;
+      updateTransform();
+      if(progress < 1) requestAnimationFrame(anim);
+      else selectStation(nextSt.id);
+    }
+    requestAnimationFrame(anim);
+  }
+  document.getElementById('jump-next-btn')?.addEventListener('click', jumpToNext);
 
   function getDifficultyColor(d){
     if(d === 'Easy') return { bg:'rgba(52,211,153,0.1)', color:'#34D399', border:'rgba(52,211,153,0.3)' };
@@ -1229,7 +1358,12 @@
   }
 
   function toggleVisited(id){
-    if(state.visited.has(id)) state.visited.delete(id); else state.visited.add(id);
+    if(state.visited.has(id)) {
+      state.visited.delete(id);
+    } else {
+      state.visited.add(id);
+      playSuccess();
+    }
     document.querySelector(`.station[data-id="${id}"]`).classList.toggle('visited', state.visited.has(id));
     
     // Gamification check
@@ -1240,8 +1374,13 @@
       if(s.line === lineId && state.visited.has(s.id)) visitedInLine++;
     });
     const completed = visitedInLine === state.lineTotals[lineId];
+    const linePath = document.querySelector(`.line-path[data-line="${lineId}"]`);
     
-    document.querySelector(`.line-path[data-line="${lineId}"]`).classList.toggle('completed', completed);
+    if (completed && !linePath.classList.contains('completed')) {
+      playLevelUp();
+    }
+    
+    linePath.classList.toggle('completed', completed);
     document.querySelectorAll(`.station[data-line="${lineId}"]`).forEach(node => {
       node.classList.toggle('completed', completed);
     });
